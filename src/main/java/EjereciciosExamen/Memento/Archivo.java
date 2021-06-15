@@ -1,23 +1,37 @@
 package EjereciciosExamen.Memento;
 
 public class Archivo {
-    private String doc;
+    private String estado;
+    private int numeroVersion;
 
-    public Archivo(){}
-
-    public Archivo(String doc){
-        this.doc = doc;
+    public Archivo(){
+        this.numeroVersion=1;
     }
 
-    public String getDoc() {
-        return doc;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public void setDoc(String doc) {
-        this.doc = doc;
-    }
+    public void versionamiento(String estado, CareTaker almacenador){
+        int numeroPalabras = 0;
+        for (String palabras: estado.split(" ")){
+            numeroPalabras++;
+        }
+        if(numeroPalabras>=5){
+            setEstado(estado);
+            almacenador.versionate("Version: " + numeroVersion++, makeVersion() );
+        }
 
-    public void showInfo(){
 
-    }
+        }
+
+        public Memento makeVersion(){
+            System.out.println("Generando Version");
+            System.out.println(">DOC: " +estado);
+            return new Memento(this.estado);
+        }
+        public void restoreInformation(Memento memento){
+        this.estado = memento.getEstado();
+        System.out.println("Version anterior>" + estado);
+        }
 }
