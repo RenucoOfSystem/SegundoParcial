@@ -24,6 +24,10 @@ public class PagWeb implements IPagWeb{
 
     @Override
     public void notifyObserver(Post post) {
-
+        for(IUsuario user: usersList){
+            if(user.getPreferences().contains(post.getType())){
+                user.update("New post("+post.getType()+")", post);
+            }
+        }
     }
 }
